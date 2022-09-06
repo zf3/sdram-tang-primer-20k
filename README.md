@@ -12,7 +12,7 @@ Under default settings (max 66.7Mhz):
 - SDRAMs need periodic refreshes or data loss happens. They provide an *auto-refresh* function to do one row of refresh. This auto-refresh operation is controlled with the `refresh` input pin. 4096 or more refreshes should happen in any 64ms for the memory to not lose data. So the main circuit should invoke auto-refresh at least once **every ~15us**.
 
 SDRAM Wiring:
-- See [src/sdram_top.v](src/sdram_top.v) for detailed pin diagrams. You need about 40 wires for sdram to work.
+- See [sdram_top.v](src/sdram_top.v) for a wiring diagram. You need about 40 wires for sdram to work.
 - 12 address pins: row address A[11:0] (4096 rows), column address A[8:0] (512 words per row)
 - 2 bank address pins.
 - 16 DQ pins.
@@ -22,6 +22,7 @@ SDRAM Wiring:
 - Finally we need a 180-degree phase-shifted clock signal (`clk_sdram`) for SDRAM. This can be generated with PLL's clkoutp output.
 
 Usage:
+- [sdram.v](src/sdram.v) is the actual SDRAM controller.
 - See [sdram_top.v](src/sdram_top.v) for an example where all 16MB of memory is written to and read from. [Results](doc/test_results.png) are printed to the serial console.
 
 Feng Zhou, 2022.9

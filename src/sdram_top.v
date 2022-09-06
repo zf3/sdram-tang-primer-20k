@@ -1,6 +1,6 @@
 //
 // SDRAM access example for Tang Primer 20K
-// Feng Zhou, 2022.0
+// Feng Zhou, 2022.9
 //
 // SDRAM memory module: 
 // Chip is Winbond W9812G6KH-6.   2M x 4 BANKS x 16 BITS SDRAM
