@@ -43,48 +43,48 @@ assign tx_clk = (tx_clkcnt == 0);
 initial tx_clkcnt=0;
 
 always @(posedge clk) begin
-	if (tx_clkcnt >= TX_CLK_MAX)
-		tx_clkcnt <= 0;
-	else
-		tx_clkcnt <= tx_clkcnt + 1;
+    if (tx_clkcnt >= TX_CLK_MAX)
+        tx_clkcnt <= 0;
+    else
+        tx_clkcnt <= tx_clkcnt + 1;
 end
-	
+    
 
 always @(posedge clk) begin
-	case (state)
-	STATE_IDLE: begin
-		if (localwr_en) begin
-			state <= STATE_START;
-			data <= localdin;
-			bitpos <= 3'h0;
-		end
-	end
-	STATE_START: begin
-		if (tx_clk) begin
-			tx_p <= 1'b0;
-			state <= STATE_DATA;
-		end
-	end
-	STATE_DATA: begin
-		if (tx_clk) begin
-			if (bitpos == 3'h7)
-				state <= STATE_STOP;
-			else
-				bitpos <= bitpos + 3'h1;
-			tx_p <= data[bitpos];
-		end
-	end
-	STATE_STOP: begin
-		if (tx_clk) begin
-			tx_p <= 1'b1;
-			state <= STATE_IDLE;
-		end
-	end
-	default: begin
-		tx_p <= 1'b1;
-		state <= STATE_IDLE;
-	end
-	endcase
+    case (state)
+    STATE_IDLE: begin
+        if (localwr_en) begin
+            state <= STATE_START;
+            data <= localdin;
+            bitpos <= 3'h0;
+        end
+    end
+    STATE_START: begin
+        if (tx_clk) begin
+            tx_p <= 1'b0;
+            state <= STATE_DATA;
+        end
+    end
+    STATE_DATA: begin
+        if (tx_clk) begin
+            if (bitpos == 3'h7)
+                state <= STATE_STOP;
+            else
+                bitpos <= bitpos + 3'h1;
+            tx_p <= data[bitpos];
+        end
+    end
+    STATE_STOP: begin
+        if (tx_clk) begin
+            tx_p <= 1'b1;
+            state <= STATE_IDLE;
+        end
+    end
+    default: begin
+        tx_p <= 1'b1;
+        state <= STATE_IDLE;
+    end
+    endcase
 end
 
 assign tx_busy = (state != STATE_IDLE);

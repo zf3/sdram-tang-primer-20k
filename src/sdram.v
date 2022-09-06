@@ -51,29 +51,29 @@ module sdram
 )
 (
     // SDRAM side interface
-	inout [15:0]      SDRAM_DQ,
-	output reg [ROW_WIDTH-1:0]  SDRAM_A,
-	output reg [BANK_WIDTH-1:0] SDRAM_BA,
-	output            SDRAM_nCS,    // not strictly necessary, always 0
-	output reg        SDRAM_nWE,
-	output reg        SDRAM_nRAS,
-	output reg        SDRAM_nCAS,
-	output            SDRAM_CLK,
+    inout [15:0]      SDRAM_DQ,
+    output reg [ROW_WIDTH-1:0]  SDRAM_A,
+    output reg [BANK_WIDTH-1:0] SDRAM_BA,
+    output            SDRAM_nCS,    // not strictly necessary, always 0
+    output reg        SDRAM_nWE,
+    output reg        SDRAM_nRAS,
+    output reg        SDRAM_nCAS,
+    output            SDRAM_CLK,
     output            SDRAM_CKE,    // not strictly necessary, always 1
-	// our module has no DQM pins. Both are tied to GND.
-	
-	// Logic side interface
-	input             clk,
+    // our module has no DQM pins. Both are tied to GND.
+    
+    // Logic side interface
+    input             clk,
     input             clk_sdram,    // phase shifted from clk (normally 180-degrees)
     input             resetn,
-	input             rd,           // command: read
-	input             wr,           // command: write
+    input             rd,           // command: read
+    input             wr,           // command: write
     input             refresh,      // command: auto refresh. 4096 refresh cycles in 64ms. Once per 15us.
-	input      [24:0] addr,         // word address
-	input      [15:0] din,          // 16-bit data input
-	output     [15:0] dout,         // 16-bit data output
+    input      [24:0] addr,         // word address
+    input      [15:0] din,          // 16-bit data input
+    output     [15:0] dout,         // 16-bit data output
     output reg        data_ready,   // available 6 cycles after wr is set
-	output reg        busy          // 0: ready for next command
+    output reg        busy          // 0: ready for next command
 );
 
 // Tri-state DQ input/output

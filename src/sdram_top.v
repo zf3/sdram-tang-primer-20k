@@ -72,15 +72,15 @@ module sdram_top
 
     input d7,
 
-	inout  [15:0] SDRAM_DQ,   // 16 bit bidirectional data bus
-	output [11:0] SDRAM_A,    // 12 bit multiplexed address bus
-	output [1:0] SDRAM_BA,   // 4 banks
-	output SDRAM_nCS,  // a single chip select
-	output SDRAM_nWE,  // write enable
-	output SDRAM_nRAS, // row address select
-	output SDRAM_nCAS, // columns address select
-	output SDRAM_CLK,
-	output SDRAM_CKE,
+    inout  [15:0] SDRAM_DQ,   // 16 bit bidirectional data bus
+    output [11:0] SDRAM_A,    // 12 bit multiplexed address bus
+    output [1:0] SDRAM_BA,   // 4 banks
+    output SDRAM_nCS,  // a single chip select
+    output SDRAM_nWE,  // write enable
+    output SDRAM_nRAS, // row address select
+    output SDRAM_nCAS, // columns address select
+    output SDRAM_CLK,
+    output SDRAM_CKE,
 
     output [7:0] led,
 
@@ -110,8 +110,8 @@ Gowin_rPLL pll(
 
 sdram #(.FREQ(FREQ)) u_sdram (
     .clk(clk), .clk_sdram(clk_sdram), .resetn(sys_resetn && start),
-	.addr(addr), .rd(rd), .wr(wr), .refresh(refresh),
-	.din(din), .dout(dout), .data_ready(data_ready), .busy(busy),
+    .addr(addr), .rd(rd), .wr(wr), .refresh(refresh),
+    .din(din), .dout(dout), .data_ready(data_ready), .busy(busy),
 
     .SDRAM_DQ(SDRAM_DQ),   // 16 bit bidirectional data bus
     .SDRAM_A(SDRAM_A),    // 13 bit multiplexed address bus
