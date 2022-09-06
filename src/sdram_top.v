@@ -149,17 +149,19 @@ reg refresh_executed;   // pulse from main FSM
 reg [11:0] refresh_time;
 localparam REFRESH_COUNT=FREQ/1000/1000*7813/1000;       // one refresh every 422 cycles for 54 Mhz
 
-always @(posedge clk && state) begin
-    refresh_time <= refresh_time == (REFRESH_COUNT*2-2) ? (REFRESH_COUNT*2-2) : refresh_time + 1;
-    if (refresh_time == REFRESH_COUNT) 
-        refresh_needed <= 1;
-    if (refresh_executed) begin
-        refresh_time <= refresh_time - REFRESH_COUNT;
-        refresh_needed <= 0;
-    end
-    if (~sys_resetn) begin
-        refresh_time <= 0;
-        refresh_needed <= 0;
+always @(posedge clk) begin
+    if (state) begin
+        refresh_time <= refresh_time == (REFRESH_COUNT*2-2) ? (REFRESH_COUNT*2-2) : refresh_time + 1;
+        if (refresh_time == REFRESH_COUNT) 
+            refresh_needed <= 1;
+        if (refresh_executed) begin
+            refresh_time <= refresh_time - REFRESH_COUNT;
+            refresh_needed <= 0;
+        end
+        if (~sys_resetn) begin
+            refresh_time <= 0;
+            refresh_needed <= 0;
+        end
     end
 end
 
@@ -290,7 +292,6 @@ always @(posedge clk) begin
     end
 end
 
-
 //Print Controll -------------------------------------------
 `include "print.v"
 defparam tx.uart_freq=115200;
@@ -359,7 +360,6 @@ always@(posedge clk)begin
     if(~sys_resetn) `print("Perform Reset\n",STR);
 end
 //Print Controll -------------------------------------------
-
 
 endmodule
 
