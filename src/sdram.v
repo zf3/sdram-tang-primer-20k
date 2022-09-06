@@ -215,11 +215,11 @@ always @(posedge clk) begin
         end
 
         // refresh sequence
-        //  cycle / 0 \___/ 1 \___/ 2 \___/ 3 \___/ 4 \___/ 5 \___
-        //  wr    /       \_______________________________
-        //  cmd           |Refresh|  NOP  |  NOP  |  NOP  | _Next_
-        //  busy   _______/                               \_______
-        //                `------------- T_RC ------------'
+        //  cycle   / 0 \___/ 1 \___/ 2 \___/ 3 \___/ 4 \___/ 5 \___
+        //  refresh /       \_______________________________
+        //  cmd             |Refresh|  NOP  |  NOP  |  NOP  | _Next_
+        //  busy     _______/                               \_______
+        //                  `------------- T_RC ------------'
         {REFRESH, T_RC}: begin
             state <= IDLE;
             busy <= 0;
