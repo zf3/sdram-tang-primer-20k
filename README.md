@@ -5,7 +5,7 @@
 This is a simple low-latency, word-based and non-bursting controller for SDRAM modules on the [Tang Primer 20k](https://www.aliexpress.com/item/1005004653308809.html) FPGA board. The SDRAM chip tested is [Winbond W9812G6KH-6](https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf) (2M x 4 banks x 16 bits), in total 128 Mbits.
 
 Under default settings (max 66.7Mhz):
-- Latency for every data read is 4 cycles. 
+- The latency for every data read is 4 cycles. 
 - Read/write operations take 5 cycles to complete. There's no overlap between reads/writes.
 - Max bandwidth is therefore 26.7 MB/s (66.7/5*2).
 - All reads/writes are done with auto-precharge. So the user does not need to deal with row activations and precharges.
@@ -18,8 +18,8 @@ SDRAM Wiring:
 - 16 DQ pins.
 - CLK, CKE, nCS, nRAS, nCAS, nWE
 - VCC and GND.
-- Tie DQM pins to ground if your module have them.
-- Finally we need a 180-degree phase-shifted clock signal (`clk_sdram`) for SDRAM. This can be generated with PLL's clkoutp output.
+- Tie DQM pins to ground if your module has them.
+- Finally, we need a 180-degree phase-shifted clock signal (`clk_sdram`) for SDRAM. This can be generated with PLL's clkoutp output.
 
 Usage:
 - [sdram.v](src/sdram.v) is the actual SDRAM controller.
